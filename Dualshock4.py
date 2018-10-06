@@ -1,4 +1,4 @@
-import pygame
+from pygame import joystick, pygame
 
 class Dualshock4:
     def __init__(self):
@@ -6,43 +6,37 @@ class Dualshock4:
         self.controller.init()
 
     def getCross(self):
-        pass
+        return self.controller.get_button(1)
 
     def getSquare(self):
-        pass
+        return self.controller.get_button(0)
 
     def getTriangle(self):
-        pass
+        return self.controller.get_button(3)
 
     def getCircle(self):
-        pass
+        return self.controller.get_button(2)
 
     def getL1(self):
-        pass
+        return self.controller.get_button(4)
 
     def getL2(self):
-        pass
+        return self.controller.get_button(6)
 
     def getL3(self):
-        pass
+        return self.controller.get_button(10)
 
     def getR1(self):
-        pass
+        return self.controller.get_button(5)
 
     def getR2(self):
-        pass
+        return self.controller.get_button(7)
 
     def getR3(self):
-        pass
-
-    def getSelect(self):
-        pass
-
-    def getStart(self):
-        pass
+        return self.controller.get_button(11)
     
     def getLeftStick(self):
-        pass
+        return (self.controller.get_axis(0), self.controller.get_axis(1))  # Return value as (X,Y) tuple
 
     def getRightStick(self):
-        pass
+        return (self.controller.get_axis(2), self.controller.get_axis(3))  # Return value as (X,Y) tuple
