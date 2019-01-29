@@ -23,9 +23,9 @@ class GUI:
         #Row 1
         self.button_label = Label(master, text = "<button> Status", bg = 'gray', font=(None, 20))
         self.button_label.grid(row=2, column=2)
-        self.enable_button = Button(master, text="Enable", bg='green', width = 10, height = 3)  ##TODO:  Add command to handle button press
+        self.enable_button = Button(master, text="Enable", bg='green', width = 10, height = 3, command=self.button1en)  ##TODO:  Add command to handle button press
         self.enable_button.grid(row=3, column = 1)
-        self.disable_button = Button(master, text="Disable", bg='red', width = 10, height = 3)  ##TODO:  Add command to handle button press
+        self.disable_button = Button(master, text="Disable", bg='red', width = 10, height = 3, command=self.button1dis)  ##TODO:  Add command to handle button press
         self.disable_button.grid(row = 3, column = 3)
 
         self.button2_label = Label(master, text = "<button 2> Status", bg = 'gray', font=(None, 20))
@@ -49,6 +49,14 @@ class GUI:
         self.enable_button4.grid(row=6, column = 5)
         self.disable_button4 = Button(master, text="Disable", bg='red', width = 10, height = 3)  ##TODO:  Add command to handle button press
         self.disable_button4.grid(row = 6, column = 7)
+
+    def button1en(self):
+        self.button_label.config(text="Button1 Enabled")
+        self.button_label.config(bg = 'green')
+    def button1dis(self):
+        self.button_label.config(text="Button2 Disabled")
+        self.button_label.config(bg = 'red')
+
 
 
 
