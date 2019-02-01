@@ -3,6 +3,45 @@ from Tkinter import Tk, Button, Label
 import ttk
 from functools import partial
 
+import roslib
+import sys
+from python_qt_binding.QtGui import *
+from python_qt_binding.QtCore import *
+import rviz
+
+
+def __init__(self):
+    QWidget.__init__(self)
+    self.frame = rviz.VisualizationFrame()
+    self.frame.setSplashPath( "" )
+    self.frame.initialize()
+    reader = rviz.YamlConfigReader()
+    config = rviz.Config()
+    reader.readFile(config, "config.myviz")
+    self.frame.load(config)
+    self.setWindowTitle(config.mapGetChild("Title").getValue())
+    self.frame.setMenuBar(None)
+    self.frame.setStatusBar(None)
+    self.frame.setHideButtonVisibility(False)
+    self.manager = self.frame.getManager()
+    layout = QVBoxLayout()
+    layout.addWidget(self.frame)
+    thickness_slider = QSlider( Qt.Horizontal )
+    thickness_slider.setTracking( True )
+    thickness_slider.setMinimum( 1 )
+    thickness_slider.setMaximum( 1000 )
+    thickness_slider.valueChanged.connect( self.onThicknessSliderChanged )
+    layout.addWidget( thickness_slider )
+    h_layout = QHBoxLayout()
+    top_button = QPushButton( "Top View" )
+    top_button.clicked.connect( self.onTopButtonClick )
+    h_layout.addWidget( top_button )
+    side_button = QPushButton( "Side View" )
+    side_button.clicked.connect( self.onSideButtonClick )
+    h_layout.addWidget( side_button )
+    layout.addLayout( h_layout )
+    self.setLayout( layout )
+
 window = Tk()
 window.title("SDRC URC Driver Station")
 tab_control = ttk.Notebook(window, width=800, height=800)
@@ -75,3 +114,8 @@ def switch_button_status(text, enabled, label):
 
 
 window.mainloop()
+app = QApplication( sys.argv )
+myviz = MyViz()
+myviz.resize( 500, 500 )
+myviz.show()
+app.exec_()
